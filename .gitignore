@@ -4,4 +4,6 @@
 node_modules/
 
 #ignore vs code debugger configuration
-.vscode/launch.json
+.vscode/
+
+README.txt
