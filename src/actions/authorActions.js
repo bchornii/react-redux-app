@@ -1,5 +1,6 @@
 import AuthorApi from '../api/mockAuthorApi';
 import * as types from './actionTypes';
+import { beginAjaxCall, ajaxCallError } from './ajaxStatusActions';
 
 export function loadAuthorsSuccess(authors){
   return {
@@ -11,11 +12,13 @@ export function loadAuthorsSuccess(authors){
 // thunk always returns function that accept dispatch
 export function loadAuthors(){
   return dispatch => {
+    dispatch(beginAjaxCall());
     return AuthorApi.getAllAuthors()
       .then(authors => {
         dispatch(loadAuthorsSuccess(authors));
       })
       .catch(error => {
+        dispatch(ajaxCallError());
         throw(error);
       });
   };

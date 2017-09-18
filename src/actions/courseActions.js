@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import courseApi from '../api/mockCourseApi';
+import { beginAjaxCall, ajaxCallError } from './ajaxStatusActions';
 
 export function loadCoursesSuccess(courses){
   return {
@@ -25,11 +26,13 @@ export function createCourseSuccess(course){
 // thunk always returns function that accept dispatch
 export function loadCourses(){
   return function(dispatch){
+    dispatch(beginAjaxCall());
     return courseApi.getAllCourses()
       .then(courses => {
         dispatch(loadCoursesSuccess(courses));
       })
       .catch(error => {
+        dispatch(ajaxCallError());
         throw(error);
       });
   };
@@ -37,6 +40,7 @@ export function loadCourses(){
 
 export function saveCourse(course){
   return dispatch => {
+    dispatch(beginAjaxCall());
     return courseApi.saveCourse(course)
       .then(course => {
         course.id
@@ -44,6 +48,7 @@ export function saveCourse(course){
           : dispatch(createCourseSuccess(course));
       })
       .catch(error => {
+        dispatch(ajaxCallError());
         throw(error);
       });
   };
