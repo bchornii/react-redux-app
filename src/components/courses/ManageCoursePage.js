@@ -16,7 +16,6 @@ class ManageCoursePage extends React.Component {
 
     this.updateCourseState = this.updateCourseState.bind(this);
     this.saveCourse = this.saveCourse.bind(this);
-    this.redirect = this.redirect.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
