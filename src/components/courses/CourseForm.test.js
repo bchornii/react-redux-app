@@ -30,13 +30,4 @@ describe('CourseForm via Enzyme', () => {
     const wrapper = setup(true);
     expect(wrapper.find('input').props().value).toBe('Saving...');
   });
-
-  it('form should have title, author, category and length inputs', () =>{
-    const wrapper = setup();
-    expect(wrapper.find('[name="title"]').length).toBe(1);
-    expect(wrapper.find('[name="authorId"]').length).toBe(1);
-    expect(wrapper.find('[name="category"]').length).toBe(1);
-    expect(wrapper.find('[name="length"]').length).toBe(1);
-  });
-
 });
