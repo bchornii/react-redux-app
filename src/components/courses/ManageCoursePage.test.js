@@ -34,7 +34,8 @@ function simulateElementOnChange(wrapper, elementType, name, value){
 }
 
 
-describe('Manage Course Page', () => {
+describe('Manage Course Page State Testing', () => {
+
   it('sets error message when trying to save empty title', () => {
     const wrapper = setup();
     const saveButton = wrapper.find('input').last();
@@ -44,7 +45,7 @@ describe('Manage Course Page', () => {
     expect(wrapper.state().errors.title).toBe('Title must be at least 5 characters.');
   });
 
-  it('change Title changes <ManageCoursePage /> state appropriately', () => {
+  it('change Title changes state appropriately', () => {
     // arrange
     const wrapper = setup();
 
@@ -55,7 +56,7 @@ describe('Manage Course Page', () => {
     expect(wrapper.state().course.title).toBe('new title');
   });
 
-  it('change Category changes <ManageCoursePage /> state appropriately', () => {
+  it('change Category changes state appropriately', () => {
     // arrange
     const wrapper = setup();
 
@@ -66,7 +67,7 @@ describe('Manage Course Page', () => {
     expect(wrapper.state().course.category).toBe('new category');
   });
 
-  it('change Length changes <ManageCoursePage /> state appropriately', () => {
+  it('change Length changes state appropriately', () => {
     // arrange
     const wrapper = setup();
 
@@ -77,7 +78,7 @@ describe('Manage Course Page', () => {
     expect(wrapper.state().course.length).toBe('new length');
   });
 
-  it('select Author changes <ManageCoursePage /> state appropriately', () => {
+  it('select Author changes state appropriately', () => {
     // arrange
     const wrapper = setup();
 
@@ -88,4 +89,48 @@ describe('Manage Course Page', () => {
     expect(wrapper.state().course.authorId).toBe('test-author');
   });
 
+});
+
+describe('Manage Course Page Interaction Testing', () => {
+
+  afterEach(() => {
+    expect.restoreSpies();
+  });
+
+  it('press Save button calls saveCourse method', () => {
+    // arrange
+    const spy = expect.spyOn(ManageCoursePage.prototype, "saveCourse");
+    const wrapper = setup();
+    const saveButton = wrapper.find('input').last();
+
+    // act
+    saveButton.simulate('click');
+
+    // assert
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('saving course calls validation method courseFormIsValid', () => {
+    // arrange
+    const spy = expect.spyOn(ManageCoursePage.prototype, "courseFormIsValid");
+    const wrapper = setup();
+    const saveButton = wrapper.find('input').last();
+
+    // act
+    saveButton.simulate('click');
+
+    // assert
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('changing input fields calls updateCourseState method', () => {
+    // arrange
+    const spy = expect.spyOn(ManageCoursePage.prototype, "updateCourseState");
+    const wrapper = setup();
+    // act
+    simulateElementOnChange(wrapper, 'input', 'length', 'new length');
+
+    // assert
+    expect(spy).toHaveBeenCalled();
+  });
 });
