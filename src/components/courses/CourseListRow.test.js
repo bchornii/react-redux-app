@@ -25,7 +25,7 @@ describe('Course List Row', () => {
     const wrapper = setup();
 
     // assert
-    expect(wrapper.find('td').length).toBe(5);
+    expect(wrapper.children('td').length).toBe(5);
   });
 
   it('link should redirect to course with id equal to "clean-code"', () => {
