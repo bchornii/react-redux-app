@@ -20,7 +20,7 @@ describe('Course Reducer', () => {
     expect(newState[0].title).toEqual('A');
   });
 
-  it('should create course when passed UPDATE_COURSE_SUCCESS', () => {
+  it('should update course when passed UPDATE_COURSE_SUCCESS', () => {
     // arrange
     const initialState = [
       {id: 'A', title: 'A'},
@@ -38,6 +38,19 @@ describe('Course Reducer', () => {
     // assert
     expect(updatedCourse.title).toEqual('New Title');
     expect(untochedCourse.title).toEqual('A');
+    expect(newState.length).toEqual(3);
+  });
+
+  it('should return courses untoched when passed LOAD_COURSES_SUCCESS', () => {
+    // arrange
+    const initialState = [];
+    const courses = [{}, {}, {}];
+    const action = actions.loadCoursesSuccess(courses);
+
+    // act
+    const newState = courseReducer(initialState, action);
+
+    // assert
     expect(newState.length).toEqual(3);
   });
 
