@@ -25,15 +25,6 @@ function setup(){
   return mount(<ManageCoursePage {...props} />);
 }
 
-function simulateElementOnChange(wrapper, elementType, name, value){
-  const input = wrapper.find(elementType).find({name: name});
-  input.simulate('change', { target: {
-    name: name,
-    value: value
-  }});
-}
-
-
 describe('Manage Course Page State Testing', () => {
 
   it('sets error message when trying to save empty title', () => {
@@ -48,9 +39,13 @@ describe('Manage Course Page State Testing', () => {
   it('change Title changes state appropriately', () => {
     // arrange
     const wrapper = setup();
+    const input = wrapper.find('input').find({name: 'title'});
 
     // act
-    simulateElementOnChange(wrapper, 'input', 'title', 'new title');
+    input.simulate('change', { target: {
+      name: 'title',
+      value: 'new title'
+    }});
 
     // assert
     expect(wrapper.state().course.title).toBe('new title');
@@ -59,9 +54,13 @@ describe('Manage Course Page State Testing', () => {
   it('change Category changes state appropriately', () => {
     // arrange
     const wrapper = setup();
+    const input = wrapper.find('input').find({name: 'category'});
 
     // act
-    simulateElementOnChange(wrapper, 'input', 'category', 'new category');
+    input.simulate('change', { target: {
+      name: 'category',
+      value: 'new category'
+    }});
 
     // assert
     expect(wrapper.state().course.category).toBe('new category');
@@ -70,9 +69,13 @@ describe('Manage Course Page State Testing', () => {
   it('change Length changes state appropriately', () => {
     // arrange
     const wrapper = setup();
+    const input = wrapper.find('input').find({name: 'length'});
 
     // act
-    simulateElementOnChange(wrapper, 'input', 'length', 'new length');
+    input.simulate('change', { target: {
+      name: 'length',
+      value: 'new length'
+    }});
 
     // assert
     expect(wrapper.state().course.length).toBe('new length');
@@ -81,9 +84,13 @@ describe('Manage Course Page State Testing', () => {
   it('select Author changes state appropriately', () => {
     // arrange
     const wrapper = setup();
+    const input = wrapper.find('select').find({name: 'authorId'});
 
     // act
-    simulateElementOnChange(wrapper, 'select', 'authorId', 'test-author');
+    input.simulate('change', { target: {
+      name: 'authorId',
+      value: 'test-author'
+    }});
 
     // assert
     expect(wrapper.state().course.authorId).toBe('test-author');
@@ -127,8 +134,13 @@ describe('Manage Course Page Interaction Testing', () => {
     // arrange
     const spy = expect.spyOn(ManageCoursePage.prototype, "updateCourseState");
     const wrapper = setup();
+    const lengthTextBox = wrapper.find('input').find({name: 'length'});
+
     // act
-    simulateElementOnChange(wrapper, 'input', 'length', 'new length');
+    lengthTextBox.simulate('change', { target: {
+      name: 'length',
+      value: 'new len'
+    }});
 
     // assert
     expect(spy).toHaveBeenCalled();

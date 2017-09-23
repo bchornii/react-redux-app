@@ -26,8 +26,7 @@ describe('Store', () => {
   it('should handle updating course', () => {
     // arrange
     const existingCourse = {id: 'clean-code', title: 'Clean code'};
-    const state = [...initialState.courses, Object.assign({}, { existingCourse})];
-    const store = createStore(rootReducer, state);
+    const store = createStore(rootReducer, initialState);
 
     const editedCourse = {id: 'clean-code', title: 'Edited title'};
     const action = courseActions.updateCourseSuccess(editedCourse);
